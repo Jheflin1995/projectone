@@ -42,6 +42,10 @@
       
       <!-- List of persistent classes -->
       <mapping class = "com.revature.models.Employee"/>
+      <mapping class = "com.revature.models.Requests"/>
+	  <mapping class = "com.revature.models.RemType"/>
+	  <mapping class = "com.revature.models.RequestStatus"/>
+	  <mapping class = "com.revature.models.UserRole"/>
 
       
    </session-factory>
