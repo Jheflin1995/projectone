@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -35,7 +36,7 @@ public class Employee {
 	private String password;
 
 	@ManyToOne
-	@Column(name="id")
+	@JoinColumn(name="user_role_id")
 	private UserRole user_role_id;
 	/**
 	 * no args constructor, all args constructor, all args except ID constructor
