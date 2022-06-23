@@ -43,6 +43,9 @@ public class FrontController extends HttpServlet {
 			
 			break;
 			
+		case "submit":
+			RequestHelper.processSubmition(request,response);
+			
 		default:
 			// custom error page
 			break;

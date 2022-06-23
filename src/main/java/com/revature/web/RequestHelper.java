@@ -11,13 +11,18 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.EmployeeDao;
+import com.revature.dao.RequestDao;
 import com.revature.models.Employee;
+import com.revature.models.Request;
 import com.revature.service.EmployeeService;
+import com.revature.service.RequestService;
 
 public class RequestHelper {
 	
 	// employeeservice
 	private static EmployeeService eserv = new EmployeeService(new EmployeeDao());
+	
+	private static RequestService rserv = new RequestService(new RequestDao());
 	// object mapper (for frontend)
 	private static ObjectMapper om = new ObjectMapper();
 	
@@ -131,6 +136,7 @@ public class RequestHelper {
 			String jsonString = om.writeValueAsString(e);
 			out.println(jsonString);
 			
+			request.getRequestDispatcher("welcome.html").forward(request, response);
 			
 		} else {
 			PrintWriter out = response.getWriter();
@@ -140,7 +146,58 @@ public class RequestHelper {
 			// Shout out to Gavin for figuring this out -- 204 doesn't return a response body
 //			response.setStatus(204); // 204 meants successful connection to the server, but no content found
 		}
-		
+	}
+		public static void processSubmition(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+			
+			// 1. Extract the parameters from the request (user name & password)
+			String timeSubmited = request.getParameter("time_submited");
+			String timeResolved = request.getParameter("time_resolved");
+			double amount = Double.parseDouble(request.getParameter("amount"));
+			String description = request.getParameter("description");
+			String employeeId = request.getParameter("employee_id");
+			String managerId = request.getParameter("manager_id");
+			String status = request.getParameter("Request_Status");
+			String type = request.getParameter("rem_type");// use fn + arrow key < or > to get to the beginning or end of a line of code
+			// use ctrl + arrow key to go from word to word
+			
+			Request r = new Request(amount, null, description, null, null, null, null);
+			// 2. call the confirm login(0 method from the employeeService and see what it returns
+			int pk = rserv.submitRequest(r);
+			
+			
+			// 3. If the user exists, lets print their info to the screen
+			if (r.getId() > 0) {
+				
+				// grab the session
+				HttpSession session = request.getSession();
+				
+				
+				// add the user to the session
+				session.setAttribute("the-request", r);
+				
+				// alternatively you can redirect to another resource instead of printing out dynamically
+				
+				// print out the user's data with the print writer
+				PrintWriter out = response.getWriter();
+				response.setContentType("text/html");
+				
+				out.println("<h1>Your request for " + r.getAmount() + " has been proccessed!</h1>");
+				
+				
+				// you COULD print the object out as a JSON string
+				String jsonString = om.writeValueAsString(r);
+				out.println(jsonString);
+				
+				
+				
+			} else {
+				PrintWriter out = response.getWriter();
+				response.setContentType("text/html");
+				out.println("Request not processed, sorry");
+				
+				// Shout out to Gavin for figuring this out -- 204 doesn't return a response body
+//				response.setStatus(204); // 204 meants successful connection to the server, but no content found
+			}
 			
 		
 		
