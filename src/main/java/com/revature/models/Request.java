@@ -47,7 +47,7 @@ public class Request {
 	private Employee REIMB_RESOLVER;
 	
 	@ManyToOne
-	@JoinColumn(name="request_status")
+	@JoinColumn(name="request_status") //rew
 	private RequestStatus status;
 	
 	@ManyToOne

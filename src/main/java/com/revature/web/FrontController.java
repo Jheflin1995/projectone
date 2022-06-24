@@ -43,8 +43,15 @@ public class FrontController extends HttpServlet {
 			
 			break;
 			
+		case "managerregister" :
+			RequestHelper.processManagerRegistration(request,response);
+			
 		case "submit":
 			RequestHelper.processSubmition(request,response);
+			
+			break;
+			
+
 			
 		default:
 			// custom error page

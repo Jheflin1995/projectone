@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,17 +17,27 @@ public class UserRole {
 	@Column(name= "user_role_id")
 	private int id;
 	
-	
+	@Enumerated(EnumType.STRING)
 	@Column(name= "role")
-	private String role;
+	private Role role;
 
 
 	public UserRole() {
 		super();
 	}
+	
+	
 
 
-	public UserRole(int id, String role) {
+	public UserRole(Role role) {
+		super();
+		this.role = role;
+	}
+
+
+
+
+	public UserRole(int id, Role role) {
 		super();
 		this.id = id;
 		this.role = role;
@@ -42,12 +54,12 @@ public class UserRole {
 	}
 
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 

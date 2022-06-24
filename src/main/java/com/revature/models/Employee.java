@@ -49,6 +49,19 @@ public class Employee {
 		super();
 	}
 	
+	
+	
+	public Employee(String firstName, String lastName, String username, String password, UserRole user_role_id) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.user_role_id = user_role_id;
+	}
+
+
+
 	public Employee(int id, String firstName, String lastName, String username, String password) {
 		super();
 		this.id = id;
@@ -105,6 +118,19 @@ public class Employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+
+	public UserRole getUser_role_id() {
+		return user_role_id;
+	}
+
+
+
+	public void setUser_role_id(UserRole user_role_id) {
+		this.user_role_id = user_role_id;
+	}
+
+
 
 	@Override
 	public int hashCode() {
