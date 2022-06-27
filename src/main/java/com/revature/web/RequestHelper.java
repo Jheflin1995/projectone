@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.EmployeeDao;
 import com.revature.dao.RequestDao;
 import com.revature.models.Employee;
+import com.revature.models.RemType;
 import com.revature.models.Request;
 import com.revature.models.RequestStatus;
 import com.revature.models.Role;
@@ -80,6 +81,7 @@ public class RequestHelper {
 			//add the user to the session
 			HttpSession session = request.getSession();
 			session.setAttribute("the-user", e);
+			
 			
 			request.getRequestDispatcher("welcome.html").forward(request, response);
 			//using the request dispatcher, forward the request and response to a new resource...
@@ -202,12 +204,17 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			
 			out.println("<h1>Welcome " + e.getFirstName() + "!</h1>");
 			out.println("<h3>You have successfully logged in!</h3>");
+			out.println("userroleid is " + e.getUser_role_id());
 			
 			// you COULD print the object out as a JSON string
 			String jsonString = om.writeValueAsString(e);
 			out.println(jsonString);
 			
-			request.getRequestDispatcher("welcome.html").forward(request, response);
+			
+			//request.getRequestDispatcher("welcome.html").forward(request, response);
+			request.getRequestDispatcher("managerhomepage.html").forward(request, response);
+			
+			
 			
 		} else {
 			PrintWriter out = response.getWriter();
@@ -226,15 +233,40 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			
 			RequestStatus rs = new RequestStatus(0, "Pending");
 			
+			RemType rt = new RemType();
+			
 			
 			// 1. Extract the parameters from the request (user name & password)
 			
 			double amount = Double.parseDouble(request.getParameter("amount"));
 			String description = request.getParameter("description");
-			String type = request.getParameter("rem_type");// use fn + arrow key < or > to get to the beginning or end of a line of code
+			String type = request.getParameter("request_type");// use fn + arrow key < or > to get to the beginning or end of a line of code
 			// use ctrl + arrow key to go from word to word
+			System.out.println(type);
 			
-			Request r = new Request(amount, null, description, e, null, rs, null);
+			int y = 0;
+			
+			if(type.equals("LODGING")) {
+				rt.setId(1);
+				rt.setType("LODGING");
+				
+			}if(type.equals("TRAVEL")) {
+				rt.setId(2);
+				rt.setType("TRAVEL");
+				
+			}if(type.equals("FOOD")) {
+				rt.setId(3);
+				rt.setType("FOOD");
+				
+			}if(type.equals("OTHER")) {
+				rt.setId(4);
+				rt.setType("OTHER");
+				
+			}
+			
+			
+			
+			Request r = new Request(amount, null, description, e, null, rs, rt);
 			// 2. call the confirm login(0 method from the employeeService and see what it returns
 			int pk = rserv.submitRequest(r);
 			
@@ -278,7 +310,27 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 		
 	}
 	
-	
+		public static void processAllRequests(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			//http://localhost:8080/employee-servlet-app/employees
+			//will return me an entire list of all the employees in JSON
+			// 1. set the content type to be application/json
+			response.setContentType("text/html");
+		//	response.setContentType("application/json");
+			
+			//2. Call the findAll() method from the employee service
+			List<Request> req = rserv.getAll();
+			
+			
+			//3. transfrom the list to a String
+			
+			String jsonString = om.writeValueAsString(req);
+			
+			//write it out
+			
+			PrintWriter out = response.getWriter();
+			out.write(jsonString); // write the String to the response body
+		}
 	
 
 }

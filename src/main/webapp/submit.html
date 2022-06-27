@@ -22,11 +22,21 @@
 		<input type="text" name="amount" placeholder="Enter amount"> <br />
 		 
 		<label>Description</label> 
-		<input type="text" name="description" placeholder="Enter a lastname"> <br /> 
+		<input type="text" name="description" placeholder="Enter a description"> <br /> 
 		
 		<label>Request_type</label>
 		<input type="text" name="rem_type" placeholder="type"> <br />
+		
+		 <label for="request_type">Choose a Request Type:</label>
 
+		<select name="request_type" id="requesttype">
+  		<option value="LODGING">LODGING</option>
+  		<option value="TRAVEL">TRAVEL</option>
+  		<option value="FOOD">FOOD</option>
+  		<option value="OTHER">OTHER</option>
+		</select> 
+
+		
 		<input type="submit" value="Submit Request!">
 
 	</form>

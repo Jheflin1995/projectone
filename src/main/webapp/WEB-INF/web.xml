@@ -17,6 +17,7 @@
     <url-pattern>/register</url-pattern>
     <url-pattern>/managerregister</url-pattern>
     <url-pattern>/submit</url-pattern>
+    <url-pattern>/reviewall</url-pattern>
     <!-- http://localhost:8080/employee-servlet-app/login -->
     <!-- http://localhost:8080/employee-servlet-app/employees -->
   </servlet-mapping>

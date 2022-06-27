@@ -29,6 +29,12 @@ public class RemType {
 		super();
 	}
 
+	
+	public RemType(String type) {
+		super();
+		this.type = type;
+	}
+
 	public RemType(int id, String type) {
 		super();
 		this.id = id;

@@ -51,7 +51,9 @@ public class FrontController extends HttpServlet {
 			
 			break;
 			
-
+		case "reviewall" :
+			
+			break;
 			
 		default:
 			// custom error page
