@@ -52,8 +52,21 @@ public class FrontController extends HttpServlet {
 			break;
 			
 		case "reviewall" :
+			RequestHelper.processAllRequests(request, response);
 			
 			break;
+		
+		case "reviewpending" :
+			RequestHelper.processPendingRequests(request, response);
+			
+			break;
+			
+		case "reviewresolved" :
+			RequestHelper.processResolvedRequests(request, response);
+			
+		case "viewresolvedemployee" :
+			RequestHelper.processResolvedEmployeeRequests(request, response);
+		
 			
 		default:
 			// custom error page

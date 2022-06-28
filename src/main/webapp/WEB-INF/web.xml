@@ -18,6 +18,10 @@
     <url-pattern>/managerregister</url-pattern>
     <url-pattern>/submit</url-pattern>
     <url-pattern>/reviewall</url-pattern>
+    <url-pattern>/reviewpending</url-pattern>
+    <url-pattern>/reviewresolved</url-pattern>
+    <url-pattern>/viewresolvedemployee</url-pattern>
+    
     <!-- http://localhost:8080/employee-servlet-app/login -->
     <!-- http://localhost:8080/employee-servlet-app/employees -->
   </servlet-mapping>

@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import com.revature.dao.RequestDao;
 import com.revature.models.Employee;
 import com.revature.models.Request;
+import com.revature.models.RequestStatus;
 import com.revature.util.HibernateUtil;
 
 public class RequestService {
@@ -27,6 +28,51 @@ public class RequestService {
 		
 	}
 	
+	public List<Request> getPending(){
+		
+		RequestStatus prs = new RequestStatus(0, "Pending");
+		
+		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream().filter(r ->(r.getStatus().equals(prs))).toList();
+		
+		return pendingRequests;
+		
+	}
+	
+	public List<Request> getResolved(){
+		
+		RequestStatus ars = new RequestStatus(1, "Approved");
+		RequestStatus drs = new RequestStatus(3, "Deny");
+		
+		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream()
+				.filter(r ->r.getStatus().equals(ars)||r.getStatus().equals(drs)).toList();
+		
+//			myListOfElms().stream()
+//				  .filter(elm -> elm.condition1OK() || elm.condition2OK())
+//				  .collect(toList());
+
+		return pendingRequests;
+		
+	}
+	
+	
+	public List<Request> getEmployeeResolved(Employee e){
+		
+		RequestStatus ars = new RequestStatus(1, "Approved");
+		RequestStatus drs = new RequestStatus(3, "Deny");
+		
+		int id = e.getId();
+		
+		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream()
+				.filter(t -> t.getId() == id)
+				.filter(r ->r.getStatus().equals(ars)||r.getStatus().equals(drs)).toList();
+		
+//			myListOfElms().stream()
+//				  .filter(elm -> elm.condition1OK() || elm.condition2OK())
+//				  .collect(toList());
+
+		return pendingRequests;
+		
+	}
 	public int submitRequest(Request r) {
 		
 		return rdao.insert(r);

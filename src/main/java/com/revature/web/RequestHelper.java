@@ -32,6 +32,8 @@ public class RequestHelper {
 	// object mapper (for frontend)
 	private static ObjectMapper om = new ObjectMapper();
 	
+
+	
 	public static void processEmployees(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//http://localhost:8080/employee-servlet-app/employees
@@ -179,6 +181,8 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 	}
 	public static void processLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
+		UserRole eur = new UserRole(2, Role.Employee);
+		UserRole aur = new UserRole(1, Role.Admin);
 		// 1. Extract the parameters from the request (username & password)
 		String username = request.getParameter("username");
 		String password = request.getParameter("password"); // use fn + arrow key < or > to get to the beginning or end of a line of code
@@ -210,10 +214,12 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			String jsonString = om.writeValueAsString(e);
 			out.println(jsonString);
 			
+			if(e.getUser_role_id().equals(eur)) {
+			request.getRequestDispatcher("welcome.html").forward(request, response);
 			
-			//request.getRequestDispatcher("welcome.html").forward(request, response);
+			}else if(e.getUser_role_id().equals(aur)) {
 			request.getRequestDispatcher("managerhomepage.html").forward(request, response);
-			
+			}
 			
 			
 		} else {
@@ -244,7 +250,7 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			// use ctrl + arrow key to go from word to word
 			System.out.println(type);
 			
-			int y = 0;
+			
 			
 			if(type.equals("LODGING")) {
 				rt.setId(1);
@@ -315,11 +321,83 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			//http://localhost:8080/employee-servlet-app/employees
 			//will return me an entire list of all the employees in JSON
 			// 1. set the content type to be application/json
-			response.setContentType("text/html");
-		//	response.setContentType("application/json");
+		//	response.setContentType("text/html");
+			response.setContentType("application/json");
 			
 			//2. Call the findAll() method from the employee service
 			List<Request> req = rserv.getAll();
+			
+			
+			//3. transfrom the list to a String
+			
+			String jsonString = om.writeValueAsString(req);
+			
+			//write it out
+			
+			PrintWriter out = response.getWriter();
+			out.write(jsonString); // write the String to the response body
+		}
+		
+		public static void processPendingRequests(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			//http://localhost:8080/employee-servlet-app/employees
+			//will return me an entire list of all the employees in JSON
+			// 1. set the content type to be application/json
+		//	response.setContentType("text/html");
+			response.setContentType("application/json");
+			
+			//2. Call the findAll() method from the employee service
+			List<Request> req = rserv.getPending();
+			
+			
+			//3. transfrom the list to a String
+			
+			String jsonString = om.writeValueAsString(req);
+			
+			//write it out
+			
+			PrintWriter out = response.getWriter();
+			out.write(jsonString); // write the String to the response body
+		}
+		
+		public static void processResolvedRequests(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			//http://localhost:8080/employee-servlet-app/employees
+			//will return me an entire list of all the employees in JSON
+			// 1. set the content type to be application/json
+		//	response.setContentType("text/html");
+			response.setContentType("application/json");
+			
+			//2. Call the findAll() method from the employee service
+			List<Request> req = rserv.getResolved();
+			
+			
+			//3. transfrom the list to a String
+			
+			String jsonString = om.writeValueAsString(req);
+			
+			//write it out
+			
+			PrintWriter out = response.getWriter();
+			out.write(jsonString); // write the String to the response body
+		}
+		
+		public static void processResolvedEmployeeRequests(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			HttpSession session = request.getSession();
+			
+			Employee e = (Employee) session.getAttribute("the-user");
+			
+			//http://localhost:8080/employee-servlet-app/employees
+			//will return me an entire list of all the employees in JSON
+			// 1. set the content type to be application/json
+		//	response.setContentType("text/html");
+			response.setContentType("application/json");
+			
+			
+			
+			//2. Call the findAll() method from the employee service
+			List<Request> req = rserv.getEmployeeResolved(e);
 			
 			
 			//3. transfrom the list to a String
