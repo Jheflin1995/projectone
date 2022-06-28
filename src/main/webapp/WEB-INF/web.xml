@@ -21,6 +21,8 @@
     <url-pattern>/reviewpending</url-pattern>
     <url-pattern>/reviewresolved</url-pattern>
     <url-pattern>/viewresolvedemployee</url-pattern>
+    <url-pattern>/viewpendingemployee</url-pattern>
+    
     
     <!-- http://localhost:8080/employee-servlet-app/login -->
     <!-- http://localhost:8080/employee-servlet-app/employees -->

@@ -66,6 +66,9 @@ public class FrontController extends HttpServlet {
 			
 		case "viewresolvedemployee" :
 			RequestHelper.processResolvedEmployeeRequests(request, response);
+			
+		case "viewpendingemployee" :
+			RequestHelper.processPendingEmployeeRequests(request,response);
 		
 			
 		default:

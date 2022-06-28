@@ -392,6 +392,8 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			//will return me an entire list of all the employees in JSON
 			// 1. set the content type to be application/json
 		//	response.setContentType("text/html");
+			
+			
 			response.setContentType("application/json");
 			
 			
@@ -408,6 +410,36 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			
 			PrintWriter out = response.getWriter();
 			out.write(jsonString); // write the String to the response body
+		}
+
+		public static void processPendingEmployeeRequests(HttpServletRequest request, HttpServletResponse response) {
+			HttpSession session = request.getSession();
+			
+			Employee e = (Employee) session.getAttribute("the-user");
+			
+			//http://localhost:8080/employee-servlet-app/employees
+			//will return me an entire list of all the employees in JSON
+			// 1. set the content type to be application/json
+		//	response.setContentType("text/html");
+			
+			
+			response.setContentType("application/json");
+			
+			
+			
+			//2. Call the findAll() method from the employee service
+			List<Request> req = rserv.getEmployeePending(e);
+			
+			
+			//3. transfrom the list to a String
+			
+			String jsonString = om.writeValueAsString(req);
+			
+			//write it out
+			
+			PrintWriter out = response.getWriter();
+			out.write(jsonString); // write the String to the response body
+			
 		}
 	
 

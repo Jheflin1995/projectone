@@ -60,11 +60,11 @@ public class RequestService {
 		RequestStatus ars = new RequestStatus(1, "Approved");
 		RequestStatus drs = new RequestStatus(3, "Deny");
 		
-		int id = e.getId();
+		
 		
 		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream()
-				.filter(t -> t.getId() == id)
-				.filter(r ->r.getStatus().equals(ars)||r.getStatus().equals(drs)).toList();
+				.filter(r ->r.getStatus().equals(ars)||r.getStatus().equals(drs)&&r.getREIMB_AUTHOR().equals(e))
+				.toList();
 		
 //			myListOfElms().stream()
 //				  .filter(elm -> elm.condition1OK() || elm.condition2OK())
@@ -73,9 +73,25 @@ public class RequestService {
 		return pendingRequests;
 		
 	}
+	
+	public List<Request> getEmployeePending(Employee e) {
+		
+		RequestStatus prs = new RequestStatus(0, "Pending");
+		
+		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream()
+				.filter(r ->r.getStatus().equals(prs) && r.getREIMB_AUTHOR().equals(e))
+				.toList();
+		
+		return pendingRequests;
+	}
 	public int submitRequest(Request r) {
 		
 		return rdao.insert(r);
 	}
+
+
+
+
+
 
 }
