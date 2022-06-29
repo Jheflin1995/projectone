@@ -48,7 +48,9 @@ public class RequestDao {
 	}
 
 
-	public boolean update(Employee e) {
+	public boolean update(Request r) {
+
+
 		Session ses = HibernateUtil.getSession();
 
 		Transaction tx = ses.beginTransaction();
@@ -58,7 +60,6 @@ public class RequestDao {
 		tx.commit();
 
 		return false;
-
-	}
+	
 
 }
