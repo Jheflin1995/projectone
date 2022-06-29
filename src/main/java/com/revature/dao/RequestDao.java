@@ -4,17 +4,14 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
+import com.revature.models.Request;
 import com.revature.models.Employee;
+
 import com.revature.util.HibernateUtil;
 
-// servlet -> calls service --> calls dao
-public class EmployeeDao {
+public class RequestDao {
 	
-	// CRUD methods
-	
-	// Create (think that in the service layer we'll have a REGISTER()
-	public int insert(Employee e) {
+	public int insert(Request r) {
 		
 		// grab the session object
 		Session ses = HibernateUtil.getSession();
@@ -23,7 +20,7 @@ public class EmployeeDao {
 		Transaction tx = ses.beginTransaction();
 		
 		// capture the pk returned when the session method save() is called
-		int pk = (int) ses.save(e);
+		int pk = (int) ses.save(r);
 		
 		tx.commit();
 		// return the pk
@@ -32,16 +29,16 @@ public class EmployeeDao {
 	}
 	
 	// Read
-	public List<Employee> findAll() {
+	public List<Request> findAll() {
 		
 		// grab the session
 		Session ses = HibernateUtil.getSession();
 		
 		// make an HQL -- Hibernate Query Language: odd mix of OOP & native SQL
-		 List<Employee> emps = ses.createQuery("from Employee", Employee.class).list();
+		 List<Request> reqs = ses.createQuery("from Request", Request.class).list();
 		
 		 // return the list of employees
-		return emps;
+		return reqs;
 		
 	}
 	
@@ -51,18 +48,7 @@ public class EmployeeDao {
 	}
 	
 	public boolean update(Employee e) {
-		
-		Session ses = HibernateUtil.getSession();
-		
-		Transaction tx = ses.beginTransaction();
-		
-		ses.update(e);
-		
-		tx.commit();
-
-		
 		return false;
 	}
-	
 
 }

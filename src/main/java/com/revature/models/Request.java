@@ -1,6 +1,7 @@
 package com.revature.models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -12,10 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(name="requests")
 
-public class Requests {
+public class Request {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,8 +27,10 @@ public class Requests {
 	@Column(name="amount")
 	private double amount;
 	
-	@Column(name="time_submited")
-	private java.sql.Date REIMB_SUBMITTED;
+	@UpdateTimestamp
+	@Column(name="date_submited")
+	private java.sql.Timestamp REIMB_SUBMITTED;
+	
 	
 	@Column(name="time_resolved")
 	private java.sql.Date REIM_RESOLVED;
@@ -42,18 +47,18 @@ public class Requests {
 	private Employee REIMB_RESOLVER;
 	
 	@ManyToOne
-	@JoinColumn(name="request_status")
+	@JoinColumn(name="request_status") //rew
 	private RequestStatus status;
 	
 	@ManyToOne
 	@JoinColumn(name="rem_type")
 	private RemType type;
 
-	public Requests() {
+	public Request() {
 		super();
 	}
 
-	public Requests(double amount, Date rEIMB_SUBMITTED, Date rEIM_RESOLVED, String description, Employee rEIMB_AUTHOR,
+	public Request(double amount, Timestamp rEIMB_SUBMITTED, Date rEIM_RESOLVED, String description, Employee rEIMB_AUTHOR,
 			Employee rEIMB_RESOLVER, RequestStatus status, RemType type) {
 		super();
 		this.amount = amount;
@@ -66,7 +71,20 @@ public class Requests {
 		this.type = type;
 	}
 
-	public Requests(int id, double amount, Date rEIMB_SUBMITTED, Date rEIM_RESOLVED, String description,
+	
+	public Request(double amount, Date rEIM_RESOLVED, String description, Employee rEIMB_AUTHOR,
+			Employee rEIMB_RESOLVER, RequestStatus status, RemType type) {
+		super();
+		this.amount = amount;
+		REIM_RESOLVED = rEIM_RESOLVED;
+		this.description = description;
+		REIMB_AUTHOR = rEIMB_AUTHOR;
+		REIMB_RESOLVER = rEIMB_RESOLVER;
+		this.status = status;
+		this.type = type;
+	}
+
+	public Request(int id, double amount, Timestamp rEIMB_SUBMITTED, Date rEIM_RESOLVED, String description,
 			Employee rEIMB_AUTHOR, Employee rEIMB_RESOLVER, RequestStatus status, RemType type) {
 		super();
 		this.id = id;
@@ -96,11 +114,11 @@ public class Requests {
 		this.amount = amount;
 	}
 
-	public java.sql.Date getREIMB_SUBMITTED() {
+	public Timestamp getREIMB_SUBMITTED() {
 		return REIMB_SUBMITTED;
 	}
 
-	public void setREIMB_SUBMITTED(java.sql.Date rEIMB_SUBMITTED) {
+	public void setREIMB_SUBMITTED(Timestamp rEIMB_SUBMITTED) {
 		REIMB_SUBMITTED = rEIMB_SUBMITTED;
 	}
 
@@ -166,7 +184,7 @@ public class Requests {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Requests other = (Requests) obj;
+		Request other = (Request) obj;
 		return Objects.equals(REIMB_AUTHOR, other.REIMB_AUTHOR) && Objects.equals(REIMB_RESOLVER, other.REIMB_RESOLVER)
 				&& Objects.equals(REIMB_SUBMITTED, other.REIMB_SUBMITTED)
 				&& Objects.equals(REIM_RESOLVED, other.REIM_RESOLVED)

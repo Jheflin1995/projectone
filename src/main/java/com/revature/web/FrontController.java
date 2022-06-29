@@ -43,6 +43,64 @@ public class FrontController extends HttpServlet {
 			
 			break;
 			
+		case "managerregister" :
+			RequestHelper.processManagerRegistration(request,response);
+			
+			break;
+			
+		case "submit":
+			RequestHelper.processSubmition(request,response);
+			
+			break;
+			
+		case "reviewall" :
+			RequestHelper.processAllRequests(request, response);
+			
+			break;
+		
+		case "reviewpending" :
+			RequestHelper.processPendingRequests(request, response);
+			
+			break;
+			
+		case "reviewresolved" :
+			RequestHelper.processResolvedRequests(request, response);
+			
+			break;
+			
+		case "viewresolvedemployee" :
+			RequestHelper.processResolvedEmployeeRequests(request, response);
+			
+			break;
+			
+		case "viewpendingemployee" :
+			RequestHelper.processPendingEmployeeRequests(request,response);
+		
+			break;
+		case "viewmyinfo" : 
+			
+			RequestHelper.viewMyInfo(request,response);
+			
+			break;
+			
+		case "changename" :
+			
+			RequestHelper.updateEmployeeName(request, response);
+			
+			break;
+			
+		case "changeusername" :
+			
+			RequestHelper.updateEmployeeUsername(request, response);
+			
+			break;
+			
+		case "changepassword" :
+			
+			RequestHelper.updateEmployeePassword(request, response);
+			
+			break;
+			
 		default:
 			// custom error page
 			break;
