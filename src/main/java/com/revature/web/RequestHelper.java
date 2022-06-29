@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
+import org.hibernate.SharedSessionContract;
+import org.hibernate.query.Query;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.EmployeeDao;
@@ -501,25 +503,49 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 
 		}
 
-		//	public static void updateApproveDeny(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//
-		//		HttpSession session = request.getSession();
-		//
-		//		Employee e = (Employee) session.getAttribute("the-user");
-		//		Request r = (Request)session.getAttribute(status);
-		//
-		//
-		//		String newStat = request.getParameter("status");
-		//
-		//
-		//
-		//
-		//
-		//
-		//
-		//
-		//
-		//
-		//		}
+	public static void updateApproveDeny(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+
+
+		Employee e = (Employee) session.getAttribute("the-user");
+
+		//String id = request.getParameter("id");
+		String status = request.getParameter("status");
+
+
+		//int managerKey = Integer.parseInt(request.getParameter("managerkey"))
+
+		int id = Integer.parseInt(request.getParameter("id"));
+
+
+		Request req = rserv.findId(id);
+		RequestStatus r = new RequestStatus();
+
+
+
+		if(status.equals("1")) {
+			r.setId(1);
+			r.setStatus("Approved");
+
+		}
+		if(status.equals("3")) {
+
+			r.setId(3);
+			r.setStatus("Deny");
+		}
+
+
+		req.setStatus(r);
+
+		rserv.updateRequestStatus(req);
+
+		request.getRequestDispatcher("managerhomepage.html").forward(request, response);
+
+
+
+	}
+
+
 
 }
