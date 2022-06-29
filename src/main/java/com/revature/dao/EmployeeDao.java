@@ -51,6 +51,16 @@ public class EmployeeDao {
 	}
 	
 	public boolean update(Employee e) {
+		
+		Session ses = HibernateUtil.getSession();
+		
+		Transaction tx = ses.beginTransaction();
+		
+		ses.update(e);
+		
+		tx.commit();
+
+		
 		return false;
 	}
 	

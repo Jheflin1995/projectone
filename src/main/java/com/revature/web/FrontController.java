@@ -46,6 +46,8 @@ public class FrontController extends HttpServlet {
 		case "managerregister" :
 			RequestHelper.processManagerRegistration(request,response);
 			
+			break;
+			
 		case "submit":
 			RequestHelper.processSubmition(request,response);
 			
@@ -64,12 +66,40 @@ public class FrontController extends HttpServlet {
 		case "reviewresolved" :
 			RequestHelper.processResolvedRequests(request, response);
 			
+			break;
+			
 		case "viewresolvedemployee" :
 			RequestHelper.processResolvedEmployeeRequests(request, response);
+			
+			break;
 			
 		case "viewpendingemployee" :
 			RequestHelper.processPendingEmployeeRequests(request,response);
 		
+			break;
+		case "viewmyinfo" : 
+			
+			RequestHelper.viewMyInfo(request,response);
+			
+			break;
+			
+		case "changename" :
+			
+			RequestHelper.updateEmployeeName(request, response);
+			
+			break;
+			
+		case "changeusername" :
+			
+			RequestHelper.updateEmployeeUsername(request, response);
+			
+			break;
+			
+		case "changepassword" :
+			
+			RequestHelper.updateEmployeePassword(request, response);
+			
+			break;
 			
 		default:
 			// custom error page

@@ -22,6 +22,11 @@
     <url-pattern>/reviewresolved</url-pattern>
     <url-pattern>/viewresolvedemployee</url-pattern>
     <url-pattern>/viewpendingemployee</url-pattern>
+    <url-pattern>/viewmyinfo</url-pattern>
+    <url-pattern>/changename</url-pattern>
+    <url-pattern>/changeusername</url-pattern>
+    <url-pattern>/changepassword</url-pattern>
+    
     
     
     <!-- http://localhost:8080/employee-servlet-app/login -->

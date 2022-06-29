@@ -430,6 +430,74 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			out.write(jsonString); // write the String to the response body
 			
 		}
-	
+		
+		public static void viewMyInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+			HttpSession session = request.getSession();
+			
+			Employee e = (Employee) session.getAttribute("the-user");
+			
+			
+			response.setContentType("application/json");
+					
+			
+			String jsonString = om.writeValueAsString(e);
+			
+			PrintWriter out = response.getWriter();
+			out.write(jsonString); // write the String to the response body
+			
+		}
 
+		public static void updateEmployeeName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			HttpSession session = request.getSession();
+			
+			Employee e = (Employee) session.getAttribute("the-user");	
+			
+			String newFirstName = request.getParameter("firstname");
+			String newLastName = request.getParameter("lastname");
+			
+			e.setFirstName(newFirstName);
+			e.setLastName(newLastName);
+			
+			eserv.updateEmployeeInfo(e);
+			
+			session.setAttribute("the-user", e);
+			
+			request.getRequestDispatcher("welcome.html").forward(request, response);
+		}
+
+		public static void updateEmployeeUsername(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			HttpSession session = request.getSession();
+			
+			Employee e = (Employee) session.getAttribute("the-user");	
+			
+			String newUsername = request.getParameter("username");
+
+			e.setUsername(newUsername);
+			
+			eserv.updateEmployeeInfo(e);
+			
+			session.setAttribute("the-user", e);
+			
+			request.getRequestDispatcher("welcome.html").forward(request, response);
+		}
+	
+		public static void updateEmployeePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			HttpSession session = request.getSession();
+			
+			Employee e = (Employee) session.getAttribute("the-user");	
+			
+			String newPassword = request.getParameter("password");
+
+			e.setPassword(newPassword);
+			
+			eserv.updateEmployeeInfo(e);
+			
+			session.setAttribute("the-user", e);
+			
+			request.getRequestDispatcher("welcome.html").forward(request, response);
+			
+		}
 }
