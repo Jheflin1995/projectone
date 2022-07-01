@@ -33,7 +33,7 @@ public class Request {
 	
 	
 	@Column(name="time_resolved")
-	private java.sql.Date REIM_RESOLVED;
+	private java.sql.Timestamp REIM_RESOLVED;
 	
 	@Column(name="description")
 	private String description;
@@ -57,8 +57,10 @@ public class Request {
 	public Request() {
 		super();
 	}
+	
+	
 
-	public Request(double amount, Timestamp rEIMB_SUBMITTED, Date rEIM_RESOLVED, String description, Employee rEIMB_AUTHOR,
+	public Request(double amount, Timestamp rEIMB_SUBMITTED, Timestamp rEIM_RESOLVED, String description, Employee rEIMB_AUTHOR,
 			Employee rEIMB_RESOLVER, RequestStatus status, RemType type) {
 		super();
 		this.amount = amount;
@@ -72,7 +74,8 @@ public class Request {
 	}
 
 	
-	public Request(double amount, Date rEIM_RESOLVED, String description, Employee rEIMB_AUTHOR,
+	
+	public Request(double amount, Timestamp rEIM_RESOLVED, String description, Employee rEIMB_AUTHOR,
 			Employee rEIMB_RESOLVER, RequestStatus status, RemType type) {
 		super();
 		this.amount = amount;
@@ -84,7 +87,7 @@ public class Request {
 		this.type = type;
 	}
 
-	public Request(int id, double amount, Timestamp rEIMB_SUBMITTED, Date rEIM_RESOLVED, String description,
+	public Request(int id, double amount, Timestamp rEIMB_SUBMITTED, Timestamp rEIM_RESOLVED, String description,
 			Employee rEIMB_AUTHOR, Employee rEIMB_RESOLVER, RequestStatus status, RemType type) {
 		super();
 		this.id = id;
@@ -122,11 +125,11 @@ public class Request {
 		REIMB_SUBMITTED = rEIMB_SUBMITTED;
 	}
 
-	public java.sql.Date getREIM_RESOLVED() {
+	public Timestamp getREIM_RESOLVED() {
 		return REIM_RESOLVED;
 	}
 
-	public void setREIM_RESOLVED(java.sql.Date rEIM_RESOLVED) {
+	public void setREIM_RESOLVED(Timestamp rEIM_RESOLVED) {
 		REIM_RESOLVED = rEIM_RESOLVED;
 	}
 

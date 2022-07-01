@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.revature.dao.EmployeeDao;
 import com.revature.models.Employee;
+import com.revature.models.Request;
 
 public class EmployeeService {
 	
@@ -45,6 +46,17 @@ public class EmployeeService {
 		
 		return edao.findAll();
 		
+	}
+	
+	
+	public Employee findById(int id) {
+
+		Optional<Employee> possibleReq = edao.findAll().stream()
+				.filter(e -> (e.getId()==(id)))
+				.findFirst();
+
+
+		return(possibleReq.isPresent() ? possibleReq.get() : new Employee());
 	}
 	
 
