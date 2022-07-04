@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Expense Report Submition:</title>
+<title>Employee Update Information</title>
 
 
 <style>
@@ -26,11 +26,19 @@
 			margin: 10px;
 			text-align: center;
 		}
+		h3{
+
+			margin: 10px;
+			text-align: center;
+		}
 
 
 </style>
 </head>
 <body>
+
+
+
 	<div class="container">
 
 		<div class ="card">
@@ -39,42 +47,58 @@
 
 			<div class="card-header text-center">
 
-				<h1>Welcome Stranger</h1>
-				<h3>Please sign up below:</h3>
+				<h1>UPDATE INFO</h1>
 
 			</div>
 
 
-	<form method="POST" action="submit">
-		<!-- http://localhost:8080/employee-servlet-app/register
 
-		--webxml ( program a / register url pattern to point to the Front Controller
-		--set up a case for a register url in the front controller
-		--set up the actual functionality in the RequestHelper
-		--in the request helper call the service layer to insert an employee object
-			constructed from the parameters of the request
-			-->
-
-		 <label>Amount</label>
-		<input type="text" name="amount" placeholder="Enter amount"> <br />
-
-		<label>Description</label>
-		<input type="text" name="description" placeholder="Enter a description"> <br />
+			<form method="POST" action="changename">
 
 
-		 <label for="request_type">Choose a Request Type:</label>
+				<label>New First Name</label>
+				<input type="text" name="firstname" placeholder="Enter New Firstname">
 
-		<select name="request_type" id="requesttype">
-		  <option value="LODGING">LODGING</option>
-		  <option value="TRAVEL">TRAVEL</option>
-		  <option value="FOOD">FOOD</option>
-		  <option value="OTHER">OTHER</option>
-		</select>
+				<br />
+
+				<label>New Last Name</label>
+				<input type="text" name="lastname" placeholder="Enter New Lastname">
+
+				<br />
+
+				<input type="submit" value="Submit">
+
+			</form>
+
+			<br>
+
+			<h3>UPDATE USERNAME BELOW</h3>
+
+			<form method="POST" action="changeusername">
 
 
-		<input type="submit" value="Submit Request!">
+				<label>New User Name</label>
+				<input type="text" name="username" placeholder="Enter New Username">
 
-	</form>
+				<br />
+
+				<input type="submit" value="Submit">
+
+			</form>
+
+			<h3>UPDATE PASSWORD BELOW</h3>
+
+			<form method="POST" action="changepassword">
+
+
+				<label>New Password</label>
+				<input type="text" name="password" placeholder="Enter New Password">
+
+				<br />
+
+				<input type="submit" value="Submit">
+
+			</form>
 
 	</div>
 
