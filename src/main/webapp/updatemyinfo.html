@@ -2,62 +2,99 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Employee Update Information</title>
+<title>Expense Report Submition:</title>
+
+
+<style>
+
+	body {
+		background-color: rgb(0, 238, 255);
+		padding: 70px;
+	}
+	form, label {
+			margin: 10px;
+			text-align: center;
+		}
+
+
+		.card {
+			background-color: rgba(255, 255, 255, 0.944);
+			padding: 1%;
+		}
+
+		.card-header{
+			margin: 10px;
+			text-align: center;
+		}
+
+
+</style>
 </head>
 <body>
+	<div class="container">
 
-<h1>UPDATE INFO</h1>
+		<div class ="card">
 
-	<br>
-	
-	<h3>UPDATE NAME BELOW</h3>
+		<div class="shadow-lg">
 
-	<form method="POST" action="changename">
+			<div class="card-header text-center">
 
+				<h1>Welcome Stranger</h1>
+				<h3>Please sign up below:</h3>
 
-		<label>New First Name</label> 
-		<input type="text" name="firstname" placeholder="Enter New Firstname"> 
-		
-		<br />
-		 
-		<label>New Last Name</label> 
-		<input type="text" name="lastname" placeholder="Enter New Lastname"> 
-		
-		<br /> 
-
-		<input type="submit" value="Submit">
-
-	</form>
-
-	<br>
-	
-	<h3>UPDATE USERNAME BELOW</h3>
-
-	<form method="POST" action="changeusername">
+			</div>
 
 
-		<label>New User Name</label> 
-		<input type="text" name="username" placeholder="Enter New Username"> 
-		
-		<br />
+	<form method="POST" action="submit">
+		<!-- http://localhost:8080/employee-servlet-app/register
 
-		<input type="submit" value="Submit">
+		--webxml ( program a / register url pattern to point to the Front Controller
+		--set up a case for a register url in the front controller
+		--set up the actual functionality in the RequestHelper
+		--in the request helper call the service layer to insert an employee object
+			constructed from the parameters of the request
+			-->
 
-	</form>
-	
-	<h3>UPDATE PASSWORD BELOW</h3>
+		 <label>Amount</label>
+		<input type="text" name="amount" placeholder="Enter amount"> <br />
 
-	<form method="POST" action="changepassword">
+		<label>Description</label>
+		<input type="text" name="description" placeholder="Enter a description"> <br />
 
 
-		<label>New Password</label> 
-		<input type="text" name="password" placeholder="Enter New Password"> 
-		
-		<br />
+		 <label for="request_type">Choose a Request Type:</label>
 
-		<input type="submit" value="Submit">
+		<select name="request_type" id="requesttype">
+		  <option value="LODGING">LODGING</option>
+		  <option value="TRAVEL">TRAVEL</option>
+		  <option value="FOOD">FOOD</option>
+		  <option value="OTHER">OTHER</option>
+		</select>
+
+
+		<input type="submit" value="Submit Request!">
 
 	</form>
+
+	</div>
+
+
+				<table class="table table-striped">
+
+				</table>
+
+			</div>
+
+
+		</div>
+
+
+		</div>
+
+	</div>
+
+	</div>
+
 
 </body>
 </html>
