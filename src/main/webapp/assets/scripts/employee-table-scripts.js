@@ -74,7 +74,7 @@ function buildTable(data) {
         td2.innerHTML = e.firstName;
         td3.innerHTML = e.lastName;
         td4.innerHTML = e.username;
-        td5.innerHTML = e.username;
+        td5.innerHTML = e.password;
        
 
         // finally append each table cell to the row
