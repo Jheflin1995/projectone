@@ -110,6 +110,8 @@ public class RequestHelper {
 //				if its -1 that means the registration method failed ( that might be a duplicate )
 
 		}
+		
+
 	}
 
 	/**
@@ -127,7 +129,7 @@ public class RequestHelper {
 public static void processManagerRegistration(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 //		1. extract all values from the params
-
+try {
 		String firstname = request.getParameter("firstname");
 		String lastname = request.getParameter("lastname");
 		String username = request.getParameter("username");
@@ -184,7 +186,16 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 //				if its -1 that means the registration method failed ( that might be a duplicate )
 
 		}
+		
+	}catch(Exception d) {
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
+
+		out.println("<h1>Registration failed. Username already exists.</h1>");
+		out.println("<a href=\"index.html\">Back</a>");
 	}
+	}
+
 	public static void processLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		UserRole eur = new UserRole(2, Role.Employee);
@@ -249,7 +260,7 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 
 
 			// 1. Extract the parameters from the request (user name & password)
-
+			try {
 			double amount = Double.parseDouble(request.getParameter("amount"));
 			String description = request.getParameter("description");
 			String type = request.getParameter("request_type");// use fn + arrow key < or > to get to the beginning or end of a line of code
@@ -306,7 +317,7 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 				String jsonString = om.writeValueAsString(r);
 				out.println(jsonString);
 
-
+				request.getRequestDispatcher("welcome.html").forward(request, response);
 
 			} else {
 				PrintWriter out = response.getWriter();
@@ -318,7 +329,12 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			}
 
 
-
+			}catch(Exception d) {
+				PrintWriter out = response.getWriter();
+				response.setContentType("text/html");
+				out.println("<h1>Please enter a number in the amount</h1>");
+				out.println("<a href=\"submit.html\">Back</a>");
+			}
 
 	}
 
@@ -393,6 +409,8 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			HttpSession session = request.getSession();
 
 			Employee e = (Employee) session.getAttribute("the-user");
+			
+			System.out.println(e);
 
 			//http://localhost:8080/employee-servlet-app/employees
 			//will return me an entire list of all the employees in JSON
@@ -413,6 +431,8 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			String jsonString = om.writeValueAsString(req);
 
 			//write it out
+			
+			System.out.println(req);
 
 			PrintWriter out = response.getWriter();
 			out.write(jsonString); // write the String to the response body
@@ -461,6 +481,8 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 
 			String newFirstName = request.getParameter("firstname");
 			String newLastName = request.getParameter("lastname");
+			
+			if(newFirstName!="" && newLastName!="") {
 
 			e.setFirstName(newFirstName);
 			e.setLastName(newLastName);
@@ -470,6 +492,14 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			session.setAttribute("the-user", e);
 
 			request.getRequestDispatcher("welcome.html").forward(request, response);
+			
+			}else {
+				
+				PrintWriter out = response.getWriter();
+				response.setContentType("text/html");
+				out.println("<h1>Please fill in all information for first and last name</h1>");
+				out.println("<a href=\"updatemyinfo.html\">Back</a>");
+			}
 		}
 
 		public static void updateEmployeeUsername(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -496,6 +526,8 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			Employee e = (Employee) session.getAttribute("the-user");
 
 			String newPassword = request.getParameter("password");
+			
+			if(newPassword!="") {
 
 			e.setPassword(newPassword);
 
@@ -504,6 +536,12 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 			session.setAttribute("the-user", e);
 
 			request.getRequestDispatcher("welcome.html").forward(request, response);
+			}else {
+				PrintWriter out = response.getWriter();
+				response.setContentType("text/html");
+				out.println("<h1>Please Enter Your New Password</h1>");
+				out.println("<a href=\"updatemyinfo.html\">Back</a>");
+			}
 
 		}
 
@@ -516,9 +554,15 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 		Employee e = (Employee) session.getAttribute("the-user");
 
 		String status = request.getParameter("status");
-
-		int id = Integer.parseInt(request.getParameter("id"));
-
+		int id = 0;
+		
+		try {
+		id = Integer.parseInt(request.getParameter("id"));
+		}catch(Exception r) {
+			
+		}
+		
+		if(id!=0) {
 		Request req = rserv.findId(id);
 		RequestStatus r = new RequestStatus();
 
@@ -537,10 +581,22 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 		req.setREIM_RESOLVED(updatedAt);
 		req.setREIMB_RESOLVER(e);
 
+		try {
 		rserv.updateRequestStatus(req);
 
 		request.getRequestDispatcher("managerhomepage.html").forward(request, response);
-
+		}catch(Exception c) {
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html");
+			out.println("<h1>There is no request with that id</h1>");
+			out.println("<a href=\"managerhomepage.html\">Back</a>");
+		}
+		}else {
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html");
+			out.println("<h1>There is no request with that id</h1>");
+			out.println("<a href=\"managerhomepage.html\">Back</a>");
+		}
 
 
 	}
@@ -548,9 +604,15 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 	public static void vewRequestByEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-
-		int empId = Integer.parseInt(request.getParameter("id"));
 		
+		int empId= 0;
+
+		try {
+		empId = Integer.parseInt(request.getParameter("id"));
+		}catch(Exception o) {
+			
+		}
+		if(empId!=0) {
 		Employee emp = eserv.findById(empId);
 
 		response.setContentType("application/json");
@@ -562,6 +624,13 @@ public static void processManagerRegistration(HttpServletRequest request, HttpSe
 		PrintWriter out = response.getWriter();
 		
 		out.write(jsonString);
+		}else {
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html");
+			out.println("<h1>There is no employee with that id</h1>");
+			out.println("<a href=\"managerhomepage.html\">Back</a>");
+		}
+		
 		
 	}
 

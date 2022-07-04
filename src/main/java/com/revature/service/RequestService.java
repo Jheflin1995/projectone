@@ -57,6 +57,8 @@ public class RequestService {
 
 
 	public List<Request> getEmployeeResolved(Employee e){
+		
+		System.out.println("get employee resolved triggered");
 
 		RequestStatus ars = new RequestStatus(1, "Approved");
 		RequestStatus drs = new RequestStatus(3, "Deny");
@@ -64,13 +66,13 @@ public class RequestService {
 
 
 		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream()
-				.filter(r ->r.getStatus().equals(ars)||r.getStatus().equals(drs)&&r.getREIMB_AUTHOR().equals(e))
+				.filter(r ->r.getREIMB_AUTHOR().equals(e)&&(r.getStatus().equals(ars)||r.getStatus().equals(drs)))
 				.toList();
 
 //			myListOfElms().stream()
 //				  .filter(elm -> elm.condition1OK() || elm.condition2OK())
 //				  .collect(toList());
-
+		System.out.println(pendingRequests);
 		return pendingRequests;
 
 	}
