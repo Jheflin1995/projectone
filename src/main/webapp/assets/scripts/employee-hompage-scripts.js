@@ -318,7 +318,7 @@ function fetchEmployeeResolvedRequests(){
 
     console.log('fetchEmployeeResolvedRequests triggered');
 
-    fetch(`http://localhost:8080/employee-servlet-app/viewresolvedemployee`)
+    fetch(`http://${hostname}/employee-servlet-app/viewresolvedemployee`)
     // this is changed because the port will be inferred when deployed on Elastic beanstalk
     .then(response => response.json()) // trakes a json string and transforms
                                         // it to a javaScript object
@@ -335,7 +335,7 @@ function fetchEmployeePendingRequests(){
 
     console.log('fetchEmployeePendingRequests triggered');
 
-    fetch(`http://localhost:8080/employee-servlet-app/viewpendingemployee`)
+    fetch(`http://${hostname}/employee-servlet-app/viewpendingemployee`)
     // this is changed because the port will be inferred when deployed on Elastic beanstalk
     .then(response => response.json()) // trakes a json string and transforms
                                         // it to a javaScript object
@@ -353,7 +353,7 @@ function fetchEmployeeInfo(){
 
     console.log('fetchEmployeeInfo triggered');
 
-    fetch(`http://localhost:8080/employee-servlet-app/viewmyinfo`)
+    fetch(`http://${hostname}/employee-servlet-app/viewmyinfo`)
     // this is changed because the port will be inferred when deployed on Elastic beanstalk
     .then(response => response.json()) // trakes a json string and transforms
                                         // it to a javaScript object
