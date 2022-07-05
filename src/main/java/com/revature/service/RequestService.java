@@ -1,5 +1,6 @@
 package com.revature.service;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,9 @@ import com.revature.models.Employee;
 import com.revature.models.Request;
 import com.revature.models.RequestStatus;
 import com.revature.util.HibernateUtil;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RequestService {
 
@@ -47,9 +51,7 @@ public class RequestService {
 		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream()
 				.filter(r ->r.getStatus().equals(ars)||r.getStatus().equals(drs)).toList();
 
-//			myListOfElms().stream()
-//				  .filter(elm -> elm.condition1OK() || elm.condition2OK())
-//				  .collect(toList());
+
 
 		return pendingRequests;
 
@@ -69,9 +71,7 @@ public class RequestService {
 				.filter(r ->r.getREIMB_AUTHOR().equals(e)&&(r.getStatus().equals(ars)||r.getStatus().equals(drs)))
 				.toList();
 
-//			myListOfElms().stream()
-//				  .filter(elm -> elm.condition1OK() || elm.condition2OK())
-//				  .collect(toList());
+
 		System.out.println(pendingRequests);
 		return pendingRequests;
 

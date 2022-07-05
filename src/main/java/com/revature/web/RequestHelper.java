@@ -1,8 +1,9 @@
 package com.revature.web;
 
 import java.io.IOException;
+
+
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
@@ -11,10 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.hibernate.Session;
-import org.hibernate.SharedSessionContract;
-import org.hibernate.query.Query;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.EmployeeDao;
@@ -27,7 +24,7 @@ import com.revature.models.Role;
 import com.revature.models.UserRole;
 import com.revature.service.EmployeeService;
 import com.revature.service.RequestService;
-
+import com.revature.service.EmployeeService;
 public class RequestHelper {
 
 	// employeeservice
@@ -167,7 +164,7 @@ try {
 			HttpSession session = request.getSession();
 			session.setAttribute("the-user", e);
 
-			request.getRequestDispatcher("welcome.html").forward(request, response);
+			request.getRequestDispatcher("managerhomepage.html").forward(request, response);
 			//using the request dispatcher, forward the request and response to a new resource...
 			// send the user to a ne page -- welcome.html
 
