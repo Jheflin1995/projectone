@@ -3,42 +3,93 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Registration</title>
+
+
+
+<style>
+
+	body {
+		background-color: rgb(0, 238, 255);
+		padding: 70px;
+	}
+
+	.card {
+		background-color: rgba(255, 255, 255, 0.944);
+		padding: 1%;
+	}
+
+	form, label {
+		margin: 10px;
+		text-align: center;
+	}
+	.card-header{
+			margin: 10px;
+			text-align: center;
+		}
+
+
+
+</style>
 </head>
 <body>
+	<div class="container">
 
-	<h1>Welcome Stranger</h1>
-	<h3>Please sign up below:</h3>
-	
-		<form method="POST" action="managerregister">
-		<!-- http://localhost:8080/employee-servlet-app/register
-		
-		--webxml ( program a / register url pattern to point to the Front Controller
-		--set up a case for a register url in the front controller
-		--set up the actual functionality in the RequestHelper
-		--in the request helper call the service layer to insert an employee object
-			constructed from the parameters of the request
-			
-			
-		 -->
-		<label>First Name</label> 
-		<input type="text" name="firstname" placeholder="Enter a firstname"> <br />
-		 
-		<label>Last Name</label> 
-		<input type="text" name="lastname" placeholder="Enter a lastname"> <br /> 
+		<div class ="card">
 
-		<label>Username</label> 
-		<input type="text" name="username" placeholder="Enter a username"> <br /> 
-			
-		<label>Password</label>
-		<input type="password" name="password" placeholder="Enter a password"> <br /> 
-		
-		<label>ManagerKey</label>
-		<input type="text" name="managerkey" placeholder="Enter managerkey"> <br /> 
+		<div class="shadow-lg">
 
-		<input type="submit" value="Register!">
+			<div class="card-header text-center">
 
-	</form>
-	
+		<h1>Welcome Stranger</h1>
+		<h3>Please sign up below:</h3>
+
+
+			</div>
+			<form method="POST" action="managerregister">
+				<!-- http://localhost:8080/employee-servlet-app/register
+				--webxml ( program a / register url pattern to point to the Front Controller
+				--set up a case for a register url in the front controller
+				--set up the actual functionality in the RequestHelper
+				--in the request helper call the service layer to insert an employee object
+					constructed from the parameters of the request
+				 -->
+				<label>First Name</label>
+				<input type="text" name="firstname" placeholder="Enter a firstname"> <br />
+
+				<label>Last Name</label>
+				<input type="text" name="lastname" placeholder="Enter a lastname"> <br />
+
+				<label>Username</label>
+				<input type="text" name="username" placeholder="Enter a username"> <br />
+
+				<label>Password</label>
+				<input type="password" name="password" placeholder="Enter a password"> <br />
+
+				<label>Password</label>
+				<input type="text" name="managerkey" placeholder="Enter managerkey"> <br />
+
+				<input type="submit" value="Register!">
+
+			</form>
+	</div>
+
+
+				<table class="table table-striped">
+
+				</table>
+
+			</div>
+
+
+		</div>
+
+
+		</div>
+
+	</div>
+
+	</div>
+
 
 </body>
 </html>

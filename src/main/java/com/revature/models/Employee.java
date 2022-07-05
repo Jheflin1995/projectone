@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 /**
  * This is a persistent class meaning we need to provide a no-args constructor
  * a PK, getters & setters, hashCode & equals
