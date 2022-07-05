@@ -37,7 +37,8 @@ public class RequestService {
 
 		RequestStatus prs = new RequestStatus(0, "Pending");
 
-		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream().filter(r ->(r.getStatus().equals(prs))).toList();
+		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream().filter(r ->(r.getStatus().equals(prs))).collect(Collectors.toList());
+
 
 		return pendingRequests;
 
@@ -49,7 +50,8 @@ public class RequestService {
 		RequestStatus drs = new RequestStatus(3, "Deny");
 
 		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream()
-				.filter(r ->r.getStatus().equals(ars)||r.getStatus().equals(drs)).toList();
+				.filter(r ->r.getStatus().equals(ars)||r.getStatus().equals(drs)).collect(Collectors.toList());
+;
 
 
 
@@ -69,7 +71,8 @@ public class RequestService {
 
 		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream()
 				.filter(r ->r.getREIMB_AUTHOR().equals(e)&&(r.getStatus().equals(ars)||r.getStatus().equals(drs)))
-				.toList();
+				.collect(Collectors.toList());
+;
 
 
 		System.out.println(pendingRequests);
@@ -83,7 +86,8 @@ public class RequestService {
 
 		List<Request> pendingRequests = (List<Request>) rdao.findAll().stream()
 				.filter(r ->r.getStatus().equals(prs) && r.getREIMB_AUTHOR().equals(e))
-				.toList();
+				.collect(Collectors.toList());
+;
 
 		return pendingRequests;
 	}
@@ -92,7 +96,8 @@ public class RequestService {
 
 		List<Request> employeeRequests = (List<Request>) rdao.findAll().stream()
 				.filter(r -> r.getREIMB_AUTHOR().equals(e))
-				.toList();
+				.collect(Collectors.toList());
+;
 
 		return employeeRequests;
 		
