@@ -105,7 +105,7 @@ function fetchEmps() {
 
     // the following request will work for testing on localhost
     
-    fetch(`http://localhost:8080/employee-servlet-app/employees`)
+    fetch(`http://${hostname}/employee-servlet-app/employees`)
     // this is changed because the port will be inferred when deployed on Elastic beanstalk
     .then(response => response.json()) // trakes a json string and transforms
                                         // it to a javaScript object
